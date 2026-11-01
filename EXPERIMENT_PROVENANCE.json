@@ -26,6 +26,7 @@
   },
   "training_config": "results/ippo_seed1/config.json",
   "training_summary": "results/ippo_seed1/summary.json",
-  "note": "Source, checkpoint and logs were generated locally. Training used one seed and the fixed layout. W&B recorded offline, then synchronized and independently verified; see results/ippo_seed1/wandb_sync_status.json. No remote GitHub fork is claimed.",
-  "wandb_cloud_verification": "results/ippo_seed1/wandb_sync_status.json"
+  "note": "Source, checkpoint and logs were generated locally. Training used one seed and the fixed layout. W&B recorded offline, then synchronized and independently verified. The source and artifacts were published to the GitHub fork; see the separate cloud and repository verification records.",
+  "wandb_cloud_verification": "results/ippo_seed1/wandb_sync_status.json",
+  "github_verification": "GITHUB_SUBMISSION.json"
 }

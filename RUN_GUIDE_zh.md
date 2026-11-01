@@ -63,4 +63,6 @@ python scripts/sync_wandb.py
 
 原项目源代码与已有日志备份在上一级目录 `backups/original_project_before_completion.zip`，原 Windows 虚拟环境也保留。原单智能体脚本另存于 `legacy/ppo_original.py`。
 
-`socialrl_submission.zip` 是本次代码与实验结果的提交包，位于桌面 `socialrl` 目录。GitHub 远程 fork/发布尚未执行；本地原仓库的 Git 历史及远程配置保留。
+`socialrl_submission.zip` 是本次代码与实验结果的提交包，位于桌面 `socialrl` 目录。GitHub fork 已发布：[查看完整仓库](https://github.com/YanzhuoJin/multigrid)，默认分支为 `socialrl-complete`。代码、模型、报告和视频已上传并核对 Git 内容哈希，验证记录见 `GITHUB_SUBMISSION.json`。
+
+原上游仓库的 Git 历史保留；本地 `upstream` 指向原仓库，`origin` 指向你的 fork。

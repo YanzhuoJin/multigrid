@@ -26,7 +26,9 @@ run has been synchronized and independently verified: all 1,000 logged curve
 points, through episode 100,000, match the local 100-episode return means.
 [View the W&B run](https://forge.coreweave.com/wandb/311yanzhuo-jin299-medical-college-of-wisconsin/socialrl-ippo/runs/nksxtadt).
 The verification record is `results/ippo_seed1/wandb_sync_status.json`.
-Creating a remote GitHub fork has not been performed.
+The completed source and artifacts are published in the
+[GitHub fork](https://github.com/YanzhuoJin/multigrid), on the default
+`socialrl-complete` branch. `GITHUB_SUBMISSION.json` records the verified source commit.
 For a concise Chinese guide, read `RUN_GUIDE_zh.md`.
 
 ## Installation

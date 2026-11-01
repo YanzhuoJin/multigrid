@@ -146,7 +146,7 @@ The evidence is limited to one training seed and one fixed obstacle layout. Eval
 
 ## External submission status
 
-The code, checkpoints, measured results, figures, videos and this report are available locally. W&B cloud synchronization and verification are complete: [verified run](https://forge.coreweave.com/wandb/311yanzhuo-jin299-medical-college-of-wisconsin/socialrl-ippo/runs/nksxtadt). A remote GitHub fork has not been created because account authorization was unavailable; no published repository or submission is claimed.
+The code, checkpoints, measured results, figures, videos and this report are available locally. W&B cloud synchronization and verification are complete: [verified run](https://forge.coreweave.com/wandb/311yanzhuo-jin299-medical-college-of-wisconsin/socialrl-ippo/runs/nksxtadt). The completed source is published in the [GitHub fork](https://github.com/YanzhuoJin/multigrid) on branch `socialrl-complete`. The uploaded source commit `069a2247b433a88117a82235d7d1d6b7587020c8` was verified. [GitHub publication verification record](GITHUB_SUBMISSION.json).
 
 ## Reproduction and artifacts
 

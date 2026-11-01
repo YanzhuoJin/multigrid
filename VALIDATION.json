@@ -31,5 +31,11 @@
     "verified_history_points": 1000,
     "verified_last_episode": 100000,
     "all_returns_match_local_log": true
+  },
+  "github_verification": {
+    "record": "GITHUB_SUBMISSION.json",
+    "verified_source_commit": "069a2247b433a88117a82235d7d1d6b7587020c8",
+    "verified_source_files": 113,
+    "local_and_remote_git_objects_match": true
   }
 }

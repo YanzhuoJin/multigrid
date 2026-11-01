@@ -69,6 +69,8 @@ def generate(run_dir, output, single_agent_dir=None):
     project_root = Path(__file__).resolve().parents[1]
     validation_path = project_root / "VALIDATION.json"
     validation = read_json(validation_path, required=False)
+    github_status_path = project_root / "GITHUB_SUBMISSION.json"
+    github_status = read_json(github_status_path, required=False)
     config = read_json(run_dir / "config.json")
     training = read_json(run_dir / "summary.json", required=False)
     evaluation = read_json(run_dir / "evaluation" / "summary.json", required=False)
@@ -115,6 +117,19 @@ def generate(run_dir, output, single_agent_dir=None):
             if config["wandb_mode"] == "offline" else
             "No online dashboard availability is inferred solely from the logging configuration.\n")
         cloud_submission_status = "W&B cloud synchronization remains pending. "
+    verified_source_commit = github_status.get("verified_source_commit") if github_status else None
+    github_uploaded = bool(github_status and github_status.get("uploaded") is True
+                           and isinstance(verified_source_commit, str)
+                           and verified_source_commit.strip())
+    if github_uploaded:
+        github_submission_status = (
+            f"The completed source is published in the [GitHub fork]({github_status['repository_url']}) "
+            f"on branch `{github_status['branch']}`. The uploaded source commit "
+            f"`{verified_source_commit}` was verified. "
+            + link(github_status_path, output, "GitHub publication verification record") + ".\n")
+    else:
+        github_submission_status = (
+            "GitHub publication remains pending; no verified uploaded source commit is recorded.\n")
     lines = [
         "# PPO on MultiGrid: implementation and experiments\n",
         "## Experiment status\n",
@@ -298,8 +313,7 @@ def generate(run_dir, output, single_agent_dir=None):
         "not a comparison against other trained multi-agent methods. No state-of-the-art claim is made.\n",
         "## External submission status\n",
         "The code, checkpoints, measured results, figures, videos and this report are available locally. "
-        + cloud_submission_status + "A remote GitHub fork has not been created because "
-        "account authorization was unavailable; no published repository or submission is claimed.\n",
+        + cloud_submission_status + github_submission_status,
         "## Reproduction and artifacts\n",
         "Use the recorded configuration and the commands in the project README. The essential artifacts are:\n",
         "- " + link(run_dir / "config.json", output, "Exact training configuration"),
