@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-01",
+  "python_environment": "../.venv-socialrl",
+  "command": "python -m pytest -q -p no:cacheprovider",
+  "tests_passed": 23,
+  "tests_failed": 0,
+  "elapsed_seconds": 42.03,
+  "checkpoint_continuation_test": "interrupted and uninterrupted CPU weights equal",
+  "final_artifact_audit": "results/ippo_seed1/submission_audit.json",
+  "training_completion": {
+    "episodes": 100000,
+    "joint_environment_steps": 10000000,
+    "agent_decisions": 30000000
+  },
+  "evaluation": {
+    "episodes_per_policy": 200,
+    "policies": [
+      "stochastic",
+      "deterministic",
+      "random"
+    ],
+    "held_out_seed_range": [
+      1000000,
+      1000199
+    ]
+  },
+  "final_artifact_audit_passed": 55,
+  "final_artifact_audit_failed": 0,
+  "wandb_cloud_verification": {
+    "record": "results/ippo_seed1/wandb_sync_status.json",
+    "verified_history_points": 1000,
+    "verified_last_episode": 100000,
+    "all_returns_match_local_log": true
+  }
+}

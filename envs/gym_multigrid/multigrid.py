@@ -463,8 +463,34 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     # Initialize the state
     self.reset()
 
-  def reset(self):
-    if self.fixed_environment:
+  def seed(self, seed=52):
+    """Use the same PCG64 stream as Gym, with NumPy-compatible pickling.
+
+    Gym 0.23's Generator subclass cannot be unpickled on NumPy 1.26. A plain
+    Generator preserves the stream and makes resumable checkpoints portable.
+    """
+    seed_sequence = np.random.SeedSequence(seed)
+    self.np_random = np.random.Generator(np.random.PCG64(seed_sequence))
+    return [seed_sequence.entropy]
+
+  def _rand_int(self, low, high):
+    """Support both NumPy Generator (Gym 0.23) and legacy RandomState."""
+    if hasattr(self.np_random, 'integers'):
+      return int(self.np_random.integers(low, high))
+    return int(self.np_random.randint(low, high))
+
+  def _rand_bool(self):
+    return self._rand_int(0, 2) == 0
+
+  def _rand_pos(self, xLow, xHigh, yLow, yHigh):
+    return (self._rand_int(xLow, xHigh), self._rand_int(yLow, yHigh))
+
+  def reset(self, *, seed=None, options=None):
+    if seed is not None:
+      self.seed(seed)
+      self.seed_value = seed
+    # Fixed layouts with random starting positions manage a separate map RNG.
+    if self.fixed_environment and not getattr(self, 'randomize_agent_positions', False):
       self.seed(self.seed_value)
 
     # Current position and direction of the agent
@@ -483,8 +509,8 @@ class MultiGridEnv(minigrid.MiniGridEnv):
 
       # Check that the agent doesn't overlap with an object
       start_cell = self.grid.get(*self.agent_pos[a])
-      assert (start_cell.type == 'agent' or
-              start_cell is None or start_cell.can_overlap())
+      assert (start_cell is None or start_cell.type == 'agent' or
+              start_cell.can_overlap())
 
     # Item picked up, being carried, initially nothing
     self.carrying = [None] * self.n_agents
@@ -495,10 +521,7 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     # Return first observation
     obs = self.gen_obs()
 
-    try:
-      return obs
-    except:
-      print('Error resetting, check obs')
+    return obs
 
   def __str__(self):
     """Produce a pretty string of the environment's grid along with the agent.
@@ -641,7 +664,7 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     """
     for a in range(self.n_agents):
       self.place_one_agent(
-          a, top=top, size=size, rand_dir=rand_dir, max_tries=math.inf)
+          a, top=top, size=size, rand_dir=rand_dir, max_tries=max_tries)
 
   def place_one_agent(self,
                       agent_id,
@@ -861,7 +884,7 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     reward = 0
 
     # Get the position in front of the agent
-    fwd_pos = self.front_pos[agent_id]
+    fwd_pos = self.agent_pos[agent_id] + minigrid.DIR_TO_VEC[self.agent_dir[agent_id]]
 
     # Rotate left
     if action == self.actions.left:
@@ -971,7 +994,7 @@ class MultiGridEnv(minigrid.MiniGridEnv):
 
     # Randomize order in which agents act for fairness
     agent_ordering = np.arange(self.n_agents)
-    np.random.shuffle(agent_ordering)
+    self.np_random.shuffle(agent_ordering)
 
     # Step each agent
     for a in agent_ordering:
@@ -992,7 +1015,11 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     if self.step_count >= self.max_steps:
       collective_done = True
 
-    return obs, rewards, collective_done, {}
+    terminated = bool(self.competitive and np.any(self.done))
+    truncated = bool(self.step_count >= self.max_steps and not terminated)
+    info = {'terminated': terminated, 'truncated': truncated,
+            'TimeLimit.truncated': truncated}
+    return obs, rewards, bool(collective_done), info
 
   def gen_obs_grid(self, agent_id):
     """Generate the sub-grid observed by the agent.
@@ -1058,11 +1085,11 @@ class MultiGridEnv(minigrid.MiniGridEnv):
     # - the agent's direction/orientation (acting as a compass)
     # Note direction has shape (1,) for tfagents compatibility
     obs = {
-        'image': images,
-        'direction': dirs
+        'image': np.asarray(images, dtype=np.uint8),
+        'direction': np.asarray(dirs, dtype=np.uint8)
     }
     if self.fully_observed:
-      obs['position'] = positions
+      obs['position'] = np.asarray(positions, dtype=np.uint8)
 
     return obs
 

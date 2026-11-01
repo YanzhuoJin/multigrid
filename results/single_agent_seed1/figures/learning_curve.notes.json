@@ -1,0 +1,18 @@
+{
+  "source_data": "/private/tmp/socialrl-completion/results/single_agent_seed1/episodes.csv",
+  "input_rows": 2000,
+  "excluded_rows": 0,
+  "measured_episodes": 2000,
+  "requested_target_episodes": 2000,
+  "target_reached": true,
+  "training_runs": 1,
+  "metric": "Sum of per-agent, undiscounted rewards over an episode",
+  "smoothing": {
+    "kind": "trailing arithmetic mean",
+    "window": 100,
+    "start_rule": "Use all available preceding episodes, including current episode"
+  },
+  "uncertainty": "No interval: one training run and temporally correlated episode returns",
+  "extrapolation": "None; axis ends at last recorded episode",
+  "archetype": "Single quantitative panel"
+}

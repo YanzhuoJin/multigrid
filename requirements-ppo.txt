@@ -1,0 +1,2 @@
+# Both single-agent PPO and IPPO now use the same implementation/dependencies.
+-r requirements.txt

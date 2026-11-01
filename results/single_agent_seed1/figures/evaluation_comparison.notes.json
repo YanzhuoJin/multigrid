@@ -1,0 +1,22 @@
+{
+  "source_data": "/private/tmp/socialrl-completion/results/single_agent_seed1/evaluation/episodes.csv",
+  "input_rows": 300,
+  "excluded_rows": 0,
+  "policies": [
+    "random",
+    "stochastic",
+    "deterministic"
+  ],
+  "episodes_per_policy": [
+    100,
+    100,
+    100
+  ],
+  "replicate_unit": "Held-out evaluation episode",
+  "training_runs": 1,
+  "center": "Arithmetic mean",
+  "interval": "Mean +/- 1.96 times sample SD / sqrt(n)",
+  "jitter": "Deterministic horizontal offsets used only to reduce overlap, not data modification",
+  "test": "No significance test",
+  "archetype": "Single quantitative panel"
+}

@@ -1,7 +1,7 @@
 """Multi-agent goal-seeking task with many static obstacles.
 """
-import time
 import gym_minigrid.minigrid as minigrid
+from gym.utils import seeding
 
 from envs.gym_multigrid import multigrid
 from envs.gym_multigrid.register import register
@@ -45,22 +45,87 @@ class ClutteredMultiGrid(multigrid.MultiGridEnv):
 
 
 class ClutteredMultiGridFixed15x15(ClutteredMultiGrid):
-  """A cluttered environment where the walls and goal are fixed, but agents positions change."""
+  """Fixed walls and goal, with reproducible but changing agent placements.
 
-  def __init__(self, n_agents=3, size=15, n_clutter=30, **kwargs):
-    super().__init__(n_agents=n_agents, size=size, n_clutter=n_clutter, randomize_goal=False,
-                     agent_view_size=5, max_steps=100, fixed_environment=True, **kwargs)
+  ``layout_seed`` selects the shared map; ``seed`` selects one independent
+  episode/transition stream. No wall-clock or global NumPy RNG is used.
+  """
 
-  
-  def place_agent(self, top=None, size=None, rand_dir=True, max_tries=10000):
-    """Override base class to ensure agents' positions change."""
+  # Only walls and the goal exist in this task, so the visibility mask and
+  # static image depend solely on observer position/direction. Agents do not
+  # occlude in MiniGrid. Share these immutable images across vector instances.
+  _view_caches = {}
 
-    # Set the random seed to something new so that the positions are different
-    self.seed(round(time.time() * 1000))
+  def __init__(self, n_agents=3, size=15, n_clutter=30, layout_seed=52,
+               seed=52, cache_observations=True, **kwargs):
+    self.layout_seed = int(layout_seed)
+    self.randomize_agent_positions = True
+    self.cache_observations = bool(cache_observations)
+    self._static_grid = None
+    super().__init__(n_agents=n_agents, size=size, n_clutter=n_clutter,
+                     randomize_goal=False, agent_view_size=5, max_steps=100,
+                     fixed_environment=True, seed=seed, **kwargs)
 
-    for a in range(self.n_agents):
-      self.place_one_agent(
-          a, top=top, size=size, rand_dir=rand_dir, max_tries=max_tries)
+  def _gen_grid(self, width, height):
+    if self._static_grid is None:
+      # Generate static objects with their own RNG, leaving the episode stream
+      # unchanged. Static objects are immutable under all seven task actions.
+      episode_rng = self.np_random
+      self.np_random, _ = seeding.np_random(self.layout_seed)
+      try:
+        self.grid = multigrid.Grid(width, height)
+        self.grid.wall_rect(0, 0, width, height)
+        self.put_obj(minigrid.Goal(), width - 2, height - 2)
+        for _ in range(self.n_clutter):
+          obj = minigrid.Lava() if self.walls_are_lava else minigrid.Wall()
+          self.place_obj(obj, max_tries=100)
+      finally:
+        self.np_random = episode_rng
+      self._static_grid = self.grid
+      cache_key = (width, height, self.agent_view_size, self.see_through_walls,
+                   self._static_grid.encode().tobytes())
+      self._view_cache = self._view_caches.setdefault(cache_key, {})
+    self.grid = multigrid.Grid(width, height)
+    self.grid.grid = self._static_grid.grid.copy()
+    self.place_agent(max_tries=10000)
+    self.mission = 'get to the green square'
+
+  def gen_agent_obs(self, agent_id):
+    """Cache static fields of view, then overlay visible agents exactly.
+
+    Disable ``cache_observations`` to use the reference Grid implementation;
+    the regression tests compare both paths through complete trajectories.
+    """
+    if not self.cache_observations or self.carrying[agent_id] is not None:
+      return super().gen_agent_obs(agent_id)
+    x, y = self.agent_pos[agent_id]
+    direction = self.agent_dir[agent_id]
+    key = (x, y, direction)
+    static_image = self._view_cache.get(key)
+    if static_image is None:
+      live_grid = self.grid
+      self.grid = self._static_grid
+      try:
+        static_image, _ = super().gen_agent_obs(agent_id)
+      finally:
+        self.grid = live_grid
+      static_image.setflags(write=False)
+      self._view_cache[key] = static_image
+    image = static_image.copy()
+    dx, dy = minigrid.DIR_TO_VEC[direction]
+    view_size = self.agent_view_size
+    for other_id, other_pos in enumerate(self.agent_pos):
+      if other_id == agent_id:
+        continue
+      relative_x = other_pos[0] - x
+      relative_y = other_pos[1] - y
+      vx = -dy * relative_x + dx * relative_y + view_size // 2
+      vy = view_size - 1 - dx * relative_x - dy * relative_y
+      if (0 <= vx < view_size and 0 <= vy < view_size and
+          image[vx, vy, 0] != minigrid.OBJECT_TO_IDX['unseen']):
+        image[vx, vy] = (minigrid.OBJECT_TO_IDX['agent'], other_id,
+                         (self.agent_dir[other_id] - direction - 1) % 4)
+    return image, direction
 
 
 class AdaptiveClutteredMultiGridFixed15x15(ClutteredMultiGrid):

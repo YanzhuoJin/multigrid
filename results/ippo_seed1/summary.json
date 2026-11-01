@@ -1,0 +1,12 @@
+{
+  "status": "complete",
+  "completed_episodes": 100000,
+  "joint_environment_steps": 10000000,
+  "agent_decisions": 30000000,
+  "updates": 1222,
+  "elapsed_seconds": 797.3245432499971,
+  "last_window_episodes": 100,
+  "last_window_collective_return": 8.868810000000003,
+  "checkpoint": "/private/tmp/socialrl-completion/results/ippo_seed1/checkpoints/final.pt",
+  "wandb_mode": "offline"
+}

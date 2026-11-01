@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-01",
+  "upstream_repository": "https://github.com/natashamjaques/multigrid",
+  "original_checkout_commit": "23e63742707fa00842fbbf9c6e70b5360e59bccd",
+  "python": "3.12.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "packages": {
+    "torch": "2.15.0",
+    "numpy": "1.26.4",
+    "gym": "0.23.1",
+    "gym-minigrid": "1.0.3",
+    "wandb": "0.31.0",
+    "matplotlib": "3.11.2",
+    "imageio": "2.38.1",
+    "imageio-ffmpeg": "0.7.0"
+  },
+  "source_sha256": {
+    "main.py": "f17f6d220c0ccf5dd46d64a76487643bbd2a74d9a3bee38c0608adb798fe10aa",
+    "ppo.py": "8bb2e383723fbb331106e464dfe5c7eb7a53bf96fa391c6abf1b3fcb4c506449",
+    "ippo_agent.py": "9f5113965bdb2c60a7543252f6c9704d97721e3a6d5194ca79eacca8fbc528cc",
+    "multiagent_metacontroller.py": "aca4b84d04b77dd182a08d982ee7299ba774890bea1f9c82f0ca50d228b5e342",
+    "env_adapter.py": "0135f4572cf0658f1a764b2ef42abb4669309b24cfdf51981341edea8d4597e0",
+    "envs/gym_multigrid/multigrid.py": "acae8a4d26990ec9eb4e898d8c95aac4ed29b9f30200daeff6c317cacd4b302b",
+    "envs/gym_multigrid/multigrid_envs/cluttered.py": "fb066f64d5ae99b02b99039e7b33689ca742e9ec8282c14de621bb60813d89c0",
+    "evaluate.py": "cb2d33502da1a8a70c798a8450548356d19ae88f734d2d49b23dc02ff1845e36"
+  },
+  "training_config": "results/ippo_seed1/config.json",
+  "training_summary": "results/ippo_seed1/summary.json",
+  "note": "Source, checkpoint and logs were generated locally. Training used one seed and the fixed layout. W&B recorded offline, then synchronized and independently verified; see results/ippo_seed1/wandb_sync_status.json. No remote GitHub fork is claimed.",
+  "wandb_cloud_verification": "results/ippo_seed1/wandb_sync_status.json"
+}

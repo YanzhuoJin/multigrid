@@ -1,0 +1,47 @@
+{
+  "backend": "Python",
+  "figures": {
+    "learning_curve": {
+      "text_minimum_pt": 7.0,
+      "visual_review": "Reviewed complete final rendered PDF and corresponding PNG: axis labels, legend, uncertainty, footnotes, full data extent and zero-return points readable. No clipping or overlap.",
+      "collision_report": "learning_curve.collision-audit.json",
+      "alignment": "Not applicable: one quantitative panel."
+    },
+    "evaluation_comparison": {
+      "text_minimum_pt": 7.0,
+      "visual_review": "Reviewed complete final rendered PDF and corresponding PNG: axis labels, legend, uncertainty, footnotes, full data extent and zero-return points readable. No clipping or overlap.",
+      "collision_report": "evaluation_comparison.collision-audit.json",
+      "alignment": "Not applicable: one quantitative panel."
+    }
+  },
+  "source_warning_review": "PNG is the requested coursework preview; PDF/SVG preserve vector content. A journal-submission TIFF is not required.",
+  "video_selection": "First held-out seed 1000000, fixed before evaluation; no return or success filtering.",
+  "videos": {
+    "stochastic": {
+      "mp4_frames": 108,
+      "mp4_duration_seconds": 13.5,
+      "mp4_fps": 8.0,
+      "size": [
+        1280,
+        816
+      ],
+      "gif_frames": 101,
+      "trajectory_steps": 100,
+      "collective_return": 8.837,
+      "visual_review": "Reviewed final frame and decoded MP4 frame40; full grid, all three partial views/actions, previous rewards and individual cumulative returns are legible and time-aligned."
+    },
+    "deterministic": {
+      "mp4_frames": 108,
+      "mp4_duration_seconds": 13.5,
+      "mp4_fps": 8.0,
+      "size": [
+        1280,
+        816
+      ],
+      "gif_frames": 101,
+      "trajectory_steps": 100,
+      "collective_return": 8.837,
+      "visual_review": "Reviewed final frame and decoded MP4 frame40; full grid, all three partial views/actions, previous rewards and individual cumulative returns are legible and time-aligned."
+    }
+  }
+}

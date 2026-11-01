@@ -1,97 +1,54 @@
+"""Command line entry point for independent PPO training."""
 import argparse
-import random
-import torch
-import numpy as np
-import wandb
+import json
+from dataclasses import fields
+from pathlib import Path
 
-import utils
+import yaml
 
-def parse_args():
-  parser = argparse.ArgumentParser()
-  parser.add_argument(
-      '--env_name', type=str, default='MultiGrid-Cluttered-Fixed-15x15',
-      help='Name of environment.')
-  parser.add_argument(
-      '--mode', type=str, default='ppo',
-      help="Name of experiment. Can be 'ppo'")
-  parser.add_argument(
-      '--debug', action=argparse.BooleanOptionalAction,
-      help="If used will disable wandb logging.")
-  parser.add_argument(
-      '--seed', type=int, default=None,
-      help="Random seed.")
-  parser.add_argument(
-      '--keep_training', action=argparse.BooleanOptionalAction,
-      help="If used will continue training from previous checkpoint.")
-  parser.add_argument(
-      '--visualize', action=argparse.BooleanOptionalAction,
-      help="If used will disable wandb logging.")
-  parser.add_argument(
-      '--video_dir', type=str, default='videos',
-      help="Name of location to store videos.")
-  parser.add_argument(
-      '--load_checkpoint_from',  type=str, default=None,
-      help="Path to find model checkpoints to load")
-  parser.add_argument(
-        '--wandb_project', type=str, default='',
-        help="Name of wandb project. Choose from 'multiagent_copying_ii' for 2 experts or 'multiagent_copying_1_expert_1_novice'. ")
+from multiagent_metacontroller import MultiAgent, TrainingConfig
 
-  return parser.parse_args()
 
-def get_metacontroller_class(config):
-    raise NotImplementedError("Implement and import a MetaController class!")
+def parse_args(argv=None):
+    preliminary = argparse.ArgumentParser(add_help=False)
+    preliminary.add_argument("--config", type=Path, default=Path("config/mode/ppo.yaml"))
+    preliminary.add_argument("--resume", type=Path)
+    known, _ = preliminary.parse_known_args(argv)
+    defaults = {}
+    if known.config.exists():
+        defaults.update(yaml.safe_load(known.config.read_text()) or {})
+    if known.resume:
+        import torch
+        defaults.update(torch.load(known.resume, map_location="cpu", weights_only=False)["config"])
+    parser = argparse.ArgumentParser(description=__doc__, parents=[preliminary])
+    aliases = {"env_id": ["--env-name", "--env_name"],
+               "total_episodes": ["--n-episodes", "--n_episodes"],
+               "wandb_project": ["--wandb_project"]}
+    for field in fields(TrainingConfig):
+        arguments = ["--" + field.name.replace("_", "-")] + aliases.get(field.name, [])
+        default = defaults.get(field.name, field.default)
+        if isinstance(field.default, bool):
+            parser.add_argument(*arguments, dest=field.name, action=argparse.BooleanOptionalAction,
+                                default=default)
+        else:
+            parser.add_argument(*arguments, dest=field.name, type=type(field.default), default=default)
+    parser.add_argument("--debug", action="store_true", help="Disable W&B; does not shorten training")
+    parser.add_argument("--mode", choices=["ppo", "ippo"], default="ppo")
+    return parser.parse_args(argv)
 
-def initialize(mode, env_name, debug, visualize, seed, with_expert, wandb_project):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    config = utils.generate_parameters(
-      mode=mode, domain=env_name, debug=(debug or visualize), 
-      seed=seed, with_expert=with_expert, wandb_project=wandb_project)
+def main(argv=None):
+    args = parse_args(argv)
+    config = TrainingConfig(**{field.name: getattr(args, field.name) for field in fields(TrainingConfig)})
+    if args.debug:
+        config.wandb_mode = "disabled"
+    if config.wandb_mode not in ("offline", "online", "disabled"):
+        raise ValueError("--wandb-mode must be offline, online or disabled")
+    print(json.dumps({"algorithm": "independent PPO", "episodes": config.total_episodes,
+                      "environment": config.env_id, "run_dir": config.run_dir,
+                      "wandb_mode": config.wandb_mode}), flush=True)
+    return MultiAgent(config, resume=str(args.resume) if args.resume else None).train()
 
-    # Set seeds
-    random.seed(config.seed)
-    np.random.seed(config.seed)
-    torch.manual_seed(config.seed)
 
-    env = utils.make_env(config)
-
-    metacontroller_class = get_metacontroller_class(config)
-
-    return device, config, env, metacontroller_class
-
-def main(args):
-    device, config, env, metacontroller_class = initialize(
-      args.mode, args.env_name, args.debug, args.visualize, args.seed, args.with_expert, args.wandb_project)
-
-    # Ensure if you're logging to wandb, it's to the right wandb
-    if not args.debug and not args.visualize:  # Real run that logs to wandb
-      if not args.wandb_project:
-        print('ERROR: when logging to wandb, must specify a valid wandb project.')
-        exit(1)
-
-      current_wandb_projects = ['']  # Add your wandb project here
-      if str(args.wandb_project) not in current_wandb_projects:
-          print('ERROR: wandb project not in current projects. '
-                'Change the project name or add your new project to the current projects in current_wandb_projects. '
-                'Current projects are:', current_wandb_projects)
-          exit(1)
-
-    if args.visualize:
-      agent = metacontroller_class(config, env, device, with_expert=args.with_expert, training=False)
-      agent.load_models(model_path=args.load_checkpoint_from)
-      agent.visualize(env, args.mode, args.video_dir)
-
-      print('A video of the trained policies being tested in the environment'
-            'has been generated and is located in', config.load_model_path)
-      exit(0)
-    
-    # Train Model
-    agent = metacontroller_class(config, env, device, with_expert=args.with_expert, debug=args.debug)
-
-    if args.keep_training:
-      agent.load_models(model_path=args.load_checkpoint_from)
-
-    agent.train(env)
-
-if __name__ == '__main__':
-    main(parse_args())
+if __name__ == "__main__":
+    main()

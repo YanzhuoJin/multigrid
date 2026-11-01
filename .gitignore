@@ -172,6 +172,7 @@ cython_debug/
 
 
 # Custom 
+runs/
 *.pth
 wandb
 traj/

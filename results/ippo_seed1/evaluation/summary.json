@@ -1,0 +1,285 @@
+{
+  "checkpoint": "/private/tmp/socialrl-completion/results/ippo_seed1/checkpoints/final.pt",
+  "training_completed_episodes": 100000,
+  "training_global_step": 10000000,
+  "environment": "MultiGrid-Cluttered-Fixed-15x15",
+  "layout_seed": 52,
+  "held_out_seed_range": [
+    1000000,
+    1000199
+  ],
+  "protocol": "Same fixed obstacle layout as training; held-out seeds control starting positions and environment randomness. One training run; confidence intervals measure evaluation-episode uncertainty only.",
+  "success_definition": "Agent reached a goal at least once during the joint episode. Agents respawn and may earn multiple goal rewards.",
+  "competitive": false,
+  "video_selection": "First episode for stochastic and deterministic policies, specified before results; no success filtering.",
+  "policies": {
+    "stochastic": {
+      "collective_return": {
+        "n_episodes": 200,
+        "mean": 8.862359999999999,
+        "sample_std": 1.1700994118312509,
+        "standard_error": 0.08273852287682683,
+        "normal_approx_95_ci": [
+          8.700192495161419,
+          9.024527504838579
+        ]
+      },
+      "any_agent_success": {
+        "n_episodes": 200,
+        "rate": 1.0,
+        "wilson_95_ci": [
+          0.9811539940816791,
+          1.0
+        ]
+      },
+      "all_agents_success": {
+        "n_episodes": 200,
+        "rate": 0.965,
+        "wilson_95_ci": [
+          0.9295285391333187,
+          0.9829446753626429
+        ]
+      },
+      "agent_0_success": {
+        "n_episodes": 200,
+        "rate": 0.99,
+        "wilson_95_ci": [
+          0.9642775148038205,
+          0.9972533993962251
+        ]
+      },
+      "agent_1_success": {
+        "n_episodes": 200,
+        "rate": 0.995,
+        "wilson_95_ci": [
+          0.9722256001302286,
+          0.999116854010634
+        ]
+      },
+      "agent_2_success": {
+        "n_episodes": 200,
+        "rate": 0.98,
+        "wilson_95_ci": [
+          0.9497121344948062,
+          0.9921956998236058
+        ]
+      },
+      "agent_0_return": {
+        "n_episodes": 200,
+        "mean": 2.9537999999999998,
+        "sample_std": 0.6924309591329876,
+        "standard_error": 0.04896226267064407,
+        "normal_approx_95_ci": [
+          2.8578339651655376,
+          3.049766034834462
+        ]
+      },
+      "agent_1_return": {
+        "n_episodes": 200,
+        "mean": 3.0532600000000003,
+        "sample_std": 0.679055509013518,
+        "standard_error": 0.04801647552255413,
+        "normal_approx_95_ci": [
+          2.959147707975794,
+          3.1473722920242064
+        ]
+      },
+      "agent_2_return": {
+        "n_episodes": 200,
+        "mean": 2.8552999999999997,
+        "sample_std": 0.7062164315853929,
+        "standard_error": 0.04993704277593968,
+        "normal_approx_95_ci": [
+          2.757423396159158,
+          2.9531766038408414
+        ]
+      }
+    },
+    "deterministic": {
+      "collective_return": {
+        "n_episodes": 200,
+        "mean": 8.851394999999998,
+        "sample_std": 1.1995455961157975,
+        "standard_error": 0.084820682535594,
+        "normal_approx_95_ci": [
+          8.685146462230234,
+          9.017643537769763
+        ]
+      },
+      "any_agent_success": {
+        "n_episodes": 200,
+        "rate": 1.0,
+        "wilson_95_ci": [
+          0.9811539940816791,
+          1.0
+        ]
+      },
+      "all_agents_success": {
+        "n_episodes": 200,
+        "rate": 0.965,
+        "wilson_95_ci": [
+          0.9295285391333187,
+          0.9829446753626429
+        ]
+      },
+      "agent_0_success": {
+        "n_episodes": 200,
+        "rate": 0.99,
+        "wilson_95_ci": [
+          0.9642775148038205,
+          0.9972533993962251
+        ]
+      },
+      "agent_1_success": {
+        "n_episodes": 200,
+        "rate": 0.995,
+        "wilson_95_ci": [
+          0.9722256001302286,
+          0.999116854010634
+        ]
+      },
+      "agent_2_success": {
+        "n_episodes": 200,
+        "rate": 0.98,
+        "wilson_95_ci": [
+          0.9497121344948062,
+          0.9921956998236058
+        ]
+      },
+      "agent_0_return": {
+        "n_episodes": 200,
+        "mean": 2.9641800000000003,
+        "sample_std": 0.6932657749909982,
+        "standard_error": 0.0490212930660682,
+        "normal_approx_95_ci": [
+          2.8680982655905067,
+          3.060261734409494
+        ]
+      },
+      "agent_1_return": {
+        "n_episodes": 200,
+        "mean": 2.99209,
+        "sample_std": 0.695781569071283,
+        "standard_error": 0.04919918657149204,
+        "normal_approx_95_ci": [
+          2.8956595943198757,
+          3.0885204056801245
+        ]
+      },
+      "agent_2_return": {
+        "n_episodes": 200,
+        "mean": 2.8951249999999997,
+        "sample_std": 0.7191553947401907,
+        "standard_error": 0.05085196563476772,
+        "normal_approx_95_ci": [
+          2.795455147355855,
+          2.9947948526441444
+        ]
+      }
+    },
+    "random": {
+      "collective_return": {
+        "n_episodes": 200,
+        "mean": 0.05733,
+        "sample_std": 0.19691934195548416,
+        "standard_error": 0.013924300204351547,
+        "normal_approx_95_ci": [
+          0.030038371599470967,
+          0.08462162840052903
+        ]
+      },
+      "any_agent_success": {
+        "n_episodes": 200,
+        "rate": 0.09,
+        "wilson_95_ci": [
+          0.05768697871453362,
+          0.13776674613848952
+        ]
+      },
+      "all_agents_success": {
+        "n_episodes": 200,
+        "rate": 0.0,
+        "wilson_95_ci": [
+          0.0,
+          0.018846005918320894
+        ]
+      },
+      "agent_0_success": {
+        "n_episodes": 200,
+        "rate": 0.045,
+        "wilson_95_ci": [
+          0.023852271724704163,
+          0.08329759366096785
+        ]
+      },
+      "agent_1_success": {
+        "n_episodes": 200,
+        "rate": 0.015,
+        "wilson_95_ci": [
+          0.005114145184492387,
+          0.043166480556278884
+        ]
+      },
+      "agent_2_success": {
+        "n_episodes": 200,
+        "rate": 0.03,
+        "wilson_95_ci": [
+          0.013820125830748323,
+          0.06389511973247333
+        ]
+      },
+      "agent_0_return": {
+        "n_episodes": 200,
+        "mean": 0.025875,
+        "sample_std": 0.12883755256038024,
+        "standard_error": 0.00911019070869231,
+        "normal_approx_95_ci": [
+          0.008019026210963072,
+          0.043730973789036925
+        ]
+      },
+      "agent_1_return": {
+        "n_episodes": 200,
+        "mean": 0.010049999999999998,
+        "sample_std": 0.08646913935214984,
+        "standard_error": 0.00611429147992697,
+        "normal_approx_95_ci": [
+          -0.0019340113006568616,
+          0.02203401130065686
+        ]
+      },
+      "agent_2_return": {
+        "n_episodes": 200,
+        "mean": 0.021405000000000004,
+        "sample_std": 0.12949740873603122,
+        "standard_error": 0.009156849586333372,
+        "normal_approx_95_ci": [
+          0.0034575748107865956,
+          0.03935242518921341
+        ]
+      }
+    }
+  },
+  "paired_improvement_over_random": {
+    "stochastic": {
+      "n_episodes": 200,
+      "mean": 8.805029999999999,
+      "sample_std": 1.149399357715841,
+      "standard_error": 0.08127480801323335,
+      "normal_approx_95_ci": [
+        8.64573137629406,
+        8.964328623705937
+      ]
+    },
+    "deterministic": {
+      "n_episodes": 200,
+      "mean": 8.794065,
+      "sample_std": 1.1796938197331472,
+      "standard_error": 0.0834169499657169,
+      "normal_approx_95_ci": [
+        8.630567778067194,
+        8.957562221932806
+      ]
+    }
+  }
+}

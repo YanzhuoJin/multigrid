@@ -1,0 +1,12 @@
+{
+  "status": "complete",
+  "completed_episodes": 2000,
+  "joint_environment_steps": 43367,
+  "agent_decisions": 43367,
+  "updates": 22,
+  "elapsed_seconds": 4.411211292012013,
+  "last_window_episodes": 200,
+  "last_window_collective_return": 0.9174699999999999,
+  "checkpoint": "/private/tmp/socialrl-completion/results/single_agent_seed1/checkpoints/final.pt",
+  "wandb_mode": "disabled"
+}

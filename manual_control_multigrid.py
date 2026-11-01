@@ -18,23 +18,21 @@
 The env is rendered as a string so it can be used over ssh.
 """
 import argparse
-import gym
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Import needed to trigger env registration
-from envs import gym_multigrid
-from envs.gym_multigrid import multigrid_envs
+from env_adapter import DEFAULT_ENV_ID, make_env
 
 
 def parse_args():
   parser = argparse.ArgumentParser()
   parser.add_argument(
-      '--env_name', type=str, default='MultiGrid-DoorKey-8x8-v0',
+      '--env_name', type=str, default=DEFAULT_ENV_ID,
       help='Name of multi-agent environment.')
   parser.add_argument(
       '--multiple_episodes', type=int, default=100,
   )
+  parser.add_argument('--seed', type=int, default=52)
   return parser.parse_args()
 
 
@@ -93,7 +91,7 @@ def main(args):
   # This code will only work with MultiGrid environments
   assert 'MultiGrid' in args.env_name
 
-  env = gym.make(args.env_name)
+  env = make_env(args.env_name, seed=args.seed)
   env.reset()
   reward_hist = []
 
@@ -103,6 +101,7 @@ def main(args):
     env.render()
     actions = get_user_input(env)
     if not actions:
+      env.close()
       return
 
     # Reset
@@ -127,6 +126,7 @@ def main(args):
         continue
       print('Game over')
       break
+  env.close()
 
 
 if __name__ == '__main__':

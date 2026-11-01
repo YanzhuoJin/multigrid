@@ -1,0 +1,16 @@
+{
+  "cloud_sync_command_succeeded": true,
+  "synced_runs": [
+    "offline-run-20261101_125625-nksxtadt"
+  ],
+  "cloud_verified": true,
+  "verified_at": "2026-11-01T13:37:08.687626+08:00",
+  "run_url": "https://forge.coreweave.com/wandb/311yanzhuo-jin299-medical-college-of-wisconsin/socialrl-ippo/runs/nksxtadt",
+  "run_state": "finished",
+  "remote_completed_episode": 100000,
+  "remote_joint_environment_steps": 10000000,
+  "history_points": 1000,
+  "history_interval_episodes": 100,
+  "all_cloud_returns_match_local_100_episode_means": true,
+  "last_collective_return_mean": 8.868810000000003
+}

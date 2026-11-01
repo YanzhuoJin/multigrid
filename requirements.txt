@@ -1,13 +1,13 @@
-configparser==5.2.0
-ffmpeg==1.4
+# Tested with Python 3.12 on macOS Apple Silicon; CPU works on Linux/Windows too.
+# Legacy MultiGrid needs Gym rather than the unrelated modern minigrid package.
+numpy==1.26.4
 gym==0.23.1
 gym-minigrid==1.0.3
-jupyter==1.0.0
-matplotlib>=3.8.2
-moviepy==1.0.3
-numpy>=1.21.6
-pandas==2.0.3
-seaborn>=0.13.0
-setuptools==63.2.0
-torch>=1.12.0
-wandb==0.12.21
+torch>=2.2,<3
+matplotlib>=3.8,<4
+Pillow>=10
+imageio>=2.34
+imageio-ffmpeg>=0.5
+wandb>=0.19,<1
+PyYAML>=6
+pytest>=8

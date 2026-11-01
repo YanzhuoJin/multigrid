@@ -1,0 +1,632 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "scope": "Local completed training, checkpoints, evaluation and presentation artifacts",
+  "audited_at_utc": "2026-11-01T05:11:44.776606+00:00",
+  "run_dir": "/private/tmp/socialrl-completion/results/ippo_seed1",
+  "required_training_episodes": 100000,
+  "required_joint_environment_steps": 10000000,
+  "required_evaluation_episodes_per_policy": 200,
+  "passed_checks": 55,
+  "failed_checks": 0,
+  "checks": [
+    {
+      "check": "assignment_training_configuration",
+      "passed": true,
+      "detail": {
+        "total_episodes": 100000,
+        "env_id": "MultiGrid-Cluttered-Fixed-15x15",
+        "seed": 1,
+        "layout_seed": 52,
+        "num_envs": 64,
+        "wandb_mode": "offline"
+      }
+    },
+    {
+      "check": "exact_episode_count",
+      "passed": true,
+      "detail": {
+        "observed": 100000,
+        "required": 100000
+      }
+    },
+    {
+      "check": "unique_contiguous_episode_indices",
+      "passed": true,
+      "detail": "Indices must be exactly 1 through the required final episode, once each."
+    },
+    {
+      "check": "fixed_100_step_episodes",
+      "passed": true,
+      "detail": {
+        "minimum": 100,
+        "maximum": 100
+      }
+    },
+    {
+      "check": "exact_joint_environment_steps",
+      "passed": true,
+      "detail": {
+        "sum_episode_lengths": 10000000,
+        "final_global_step": 10000000
+      }
+    },
+    {
+      "check": "nondecreasing_logged_global_steps",
+      "passed": true,
+      "detail": "Parallel episodes may share a global-step count; it must never decrease."
+    },
+    {
+      "check": "finite_nonnegative_training_rewards",
+      "passed": true,
+      "detail": "All recorded individual and collective returns are finite and nonnegative."
+    },
+    {
+      "check": "collective_equals_sum_of_agents",
+      "passed": true,
+      "detail": "Every collective return equals the sum of the three individual returns."
+    },
+    {
+      "check": "success_flags_match_positive_rewards",
+      "passed": true,
+      "detail": "Success is reaching the goal at least once, not joint termination."
+    },
+    {
+      "check": "training_summary_complete",
+      "passed": true,
+      "detail": {
+        "status": "complete",
+        "completed_episodes": 100000,
+        "joint_environment_steps": 10000000,
+        "agent_decisions": 30000000,
+        "updates": 1222,
+        "elapsed_seconds": 797.3245432499971,
+        "last_window_episodes": 100,
+        "last_window_collective_return": 8.868810000000003,
+        "checkpoint": "/private/tmp/socialrl-completion/results/ippo_seed1/checkpoints/final.pt",
+        "wandb_mode": "offline"
+      }
+    },
+    {
+      "check": "training_summary_last_window_matches_csv",
+      "passed": true,
+      "detail": {
+        "window": 100,
+        "measured_mean": 8.868809999999998
+      }
+    },
+    {
+      "check": "final_checkpoint_completion",
+      "passed": true,
+      "detail": {
+        "algorithm": "independent_ppo",
+        "completed_episodes": 100000,
+        "global_step": 10000000
+      }
+    },
+    {
+      "check": "final_three_distinct_finite_policies",
+      "passed": true,
+      "detail": {
+        "policy_count": 3,
+        "policy_sha256": [
+          "723c244e77fe92f48e2a628f1490a83bca36b7064d41aeca49b8b7c964f92198",
+          "a37312af4c49df6a2d39a53fa21832b120030767d090547960d49a9f403542bc",
+          "187f60fe197dce064c912bc1b56c39cdc8e189894058d06bb0f7c0137f967a1b"
+        ]
+      }
+    },
+    {
+      "check": "final_independent_parameter_storage",
+      "passed": true,
+      "detail": "Policy state dictionaries share no parameter storage."
+    },
+    {
+      "check": "final_three_optimizers",
+      "passed": true,
+      "detail": {
+        "optimizer_count": 3
+      }
+    },
+    {
+      "check": "final_local_observation_and_action_dimensions",
+      "passed": true,
+      "detail": {
+        "obs_shape": [
+          5,
+          5,
+          3
+        ],
+        "n_actions": 7,
+        "hidden_size": 64
+      }
+    },
+    {
+      "check": "latest_checkpoint_completion",
+      "passed": true,
+      "detail": {
+        "algorithm": "independent_ppo",
+        "completed_episodes": 100000,
+        "global_step": 10000000
+      }
+    },
+    {
+      "check": "latest_three_distinct_finite_policies",
+      "passed": true,
+      "detail": {
+        "policy_count": 3,
+        "policy_sha256": [
+          "723c244e77fe92f48e2a628f1490a83bca36b7064d41aeca49b8b7c964f92198",
+          "a37312af4c49df6a2d39a53fa21832b120030767d090547960d49a9f403542bc",
+          "187f60fe197dce064c912bc1b56c39cdc8e189894058d06bb0f7c0137f967a1b"
+        ]
+      }
+    },
+    {
+      "check": "latest_independent_parameter_storage",
+      "passed": true,
+      "detail": "Policy state dictionaries share no parameter storage."
+    },
+    {
+      "check": "latest_three_optimizers",
+      "passed": true,
+      "detail": {
+        "optimizer_count": 3
+      }
+    },
+    {
+      "check": "latest_local_observation_and_action_dimensions",
+      "passed": true,
+      "detail": {
+        "obs_shape": [
+          5,
+          5,
+          3
+        ],
+        "n_actions": 7,
+        "hidden_size": 64
+      }
+    },
+    {
+      "check": "final_and_latest_policy_weights_match",
+      "passed": true,
+      "detail": "Both final checkpoint files contain the same three completed policies."
+    },
+    {
+      "check": "checkpoint_config_matches_run_config",
+      "passed": true,
+      "detail": "Final checkpoint and saved run configuration agree exactly."
+    },
+    {
+      "check": "saved_environment_task_contract",
+      "passed": true,
+      "detail": {
+        "width_height_agents_steps_clutter_layout_competitive_actions": [
+          15,
+          15,
+          3,
+          100,
+          30,
+          52,
+          false,
+          7
+        ]
+      }
+    },
+    {
+      "check": "saved_layout_matches_fixed_seed_52",
+      "passed": true,
+      "detail": "The saved static walls/goal equal the declared reference map."
+    },
+    {
+      "check": "single_goal_at_13_13",
+      "passed": true,
+      "detail": {
+        "goal_positions": [
+          [
+            13,
+            13
+          ]
+        ]
+      }
+    },
+    {
+      "check": "unmodified_goal_reward_function",
+      "passed": true,
+      "detail": {
+        "reward_step_1": 0.991,
+        "reward_step_100": 0.09999999999999998,
+        "formula": "1 - 0.9 * step_count / max_steps"
+      }
+    },
+    {
+      "check": "evaluation_uses_final_checkpoint",
+      "passed": true,
+      "detail": {
+        "training_completed_episodes": 100000,
+        "training_global_step": 10000000,
+        "environment": "MultiGrid-Cluttered-Fixed-15x15",
+        "layout_seed": 52
+      }
+    },
+    {
+      "check": "held_out_seed_count",
+      "passed": true,
+      "detail": {
+        "range": [
+          1000000,
+          1000199
+        ],
+        "required_count": 200
+      }
+    },
+    {
+      "check": "only_expected_evaluation_policies",
+      "passed": true,
+      "detail": {
+        "policies": [
+          "deterministic",
+          "random",
+          "stochastic"
+        ]
+      }
+    },
+    {
+      "check": "evaluation_stochastic_matched_unique_seeds",
+      "passed": true,
+      "detail": {
+        "episodes": 200,
+        "unique_seeds": 200
+      }
+    },
+    {
+      "check": "evaluation_stochastic_returns",
+      "passed": true,
+      "detail": "Finite rewards, collective=sum(individual), and 100-step evaluation episodes."
+    },
+    {
+      "check": "evaluation_stochastic_summary_matches_csv",
+      "passed": true,
+      "detail": {
+        "reported_mean": 8.862359999999999,
+        "csv_mean": 8.862359999999999
+      }
+    },
+    {
+      "check": "evaluation_deterministic_matched_unique_seeds",
+      "passed": true,
+      "detail": {
+        "episodes": 200,
+        "unique_seeds": 200
+      }
+    },
+    {
+      "check": "evaluation_deterministic_returns",
+      "passed": true,
+      "detail": "Finite rewards, collective=sum(individual), and 100-step evaluation episodes."
+    },
+    {
+      "check": "evaluation_deterministic_summary_matches_csv",
+      "passed": true,
+      "detail": {
+        "reported_mean": 8.851394999999998,
+        "csv_mean": 8.851394999999998
+      }
+    },
+    {
+      "check": "evaluation_random_matched_unique_seeds",
+      "passed": true,
+      "detail": {
+        "episodes": 200,
+        "unique_seeds": 200
+      }
+    },
+    {
+      "check": "evaluation_random_returns",
+      "passed": true,
+      "detail": "Finite rewards, collective=sum(individual), and 100-step evaluation episodes."
+    },
+    {
+      "check": "evaluation_random_summary_matches_csv",
+      "passed": true,
+      "detail": {
+        "reported_mean": 0.05733,
+        "csv_mean": 0.05733
+      }
+    },
+    {
+      "check": "evaluation_rng_seeds_held_out",
+      "passed": true,
+      "detail": "Evaluation RNG seeds are disjoint from training environment seeds; the map is intentionally shared."
+    },
+    {
+      "check": "stochastic_trajectory_data_alignment",
+      "passed": true,
+      "detail": "The first evaluation seed has 100 aligned actions, positions, rewards and individual cumulative returns."
+    },
+    {
+      "check": "stochastic_video_decodable",
+      "passed": true,
+      "detail": {
+        "frames": 108,
+        "shape": [
+          816,
+          1280,
+          3
+        ]
+      }
+    },
+    {
+      "check": "stochastic_animated_preview",
+      "passed": true,
+      "detail": {
+        "frames": 101,
+        "size": [
+          960,
+          612
+        ]
+      }
+    },
+    {
+      "check": "stochastic_final_frame_png",
+      "passed": true,
+      "detail": "Final trajectory image is decodable."
+    },
+    {
+      "check": "deterministic_trajectory_data_alignment",
+      "passed": true,
+      "detail": "The first evaluation seed has 100 aligned actions, positions, rewards and individual cumulative returns."
+    },
+    {
+      "check": "deterministic_video_decodable",
+      "passed": true,
+      "detail": {
+        "frames": 108,
+        "shape": [
+          816,
+          1280,
+          3
+        ]
+      }
+    },
+    {
+      "check": "deterministic_animated_preview",
+      "passed": true,
+      "detail": {
+        "frames": 101,
+        "size": [
+          960,
+          612
+        ]
+      }
+    },
+    {
+      "check": "deterministic_final_frame_png",
+      "passed": true,
+      "detail": "Final trajectory image is decodable."
+    },
+    {
+      "check": "learning_curve_complete_measured_data",
+      "passed": true,
+      "detail": {
+        "source_data": "/private/tmp/socialrl-completion/results/ippo_seed1/episodes.csv",
+        "input_rows": 100000,
+        "excluded_rows": 0,
+        "measured_episodes": 100000,
+        "requested_target_episodes": 100000,
+        "target_reached": true,
+        "training_runs": 1,
+        "metric": "Sum of per-agent, undiscounted rewards over an episode",
+        "smoothing": {
+          "kind": "trailing arithmetic mean",
+          "window": 1000,
+          "start_rule": "Use all available preceding episodes, including current episode"
+        },
+        "uncertainty": "No interval: one training run and temporally correlated episode returns",
+        "extrapolation": "None; axis ends at last recorded episode",
+        "archetype": "Single quantitative panel",
+        "export_contract": "Coursework report: editable PDF/SVG and 600-dpi PNG; no journal TIFF submission is required."
+      }
+    },
+    {
+      "check": "evaluation_comparison_complete_measured_data",
+      "passed": true,
+      "detail": {
+        "source_data": "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/episodes.csv",
+        "input_rows": 600,
+        "excluded_rows": 0,
+        "policies": [
+          "random",
+          "stochastic",
+          "deterministic"
+        ],
+        "episodes_per_policy": [
+          200,
+          200,
+          200
+        ],
+        "replicate_unit": "Held-out evaluation episode",
+        "training_runs": 1,
+        "center": "Arithmetic mean",
+        "interval": "Mean +/- 1.96 times sample SD / sqrt(n)",
+        "jitter": "Deterministic horizontal offsets used only to reduce overlap, not data modification",
+        "test": "No significance test",
+        "archetype": "Single quantitative panel",
+        "export_contract": "Coursework report: editable PDF/SVG and 600-dpi PNG; no journal TIFF submission is required."
+      }
+    },
+    {
+      "check": "local_wandb_run_record",
+      "passed": true,
+      "detail": {
+        "files": [
+          "/private/tmp/socialrl-completion/results/ippo_seed1/wandb/offline-run-20261101_125625-nksxtadt/run-nksxtadt.wandb",
+          "/private/tmp/socialrl-completion/results/ippo_seed1/wandb/latest-run/run-nksxtadt.wandb"
+        ]
+      }
+    },
+    {
+      "check": "reviewed_source_unchanged:env_adapter.py",
+      "passed": true,
+      "detail": {
+        "reviewed_sha256": "0135f4572cf0658f1a764b2ef42abb4669309b24cfdf51981341edea8d4597e0",
+        "observed_sha256": "0135f4572cf0658f1a764b2ef42abb4669309b24cfdf51981341edea8d4597e0"
+      }
+    },
+    {
+      "check": "reviewed_source_unchanged:envs/gym_multigrid/multigrid.py",
+      "passed": true,
+      "detail": {
+        "reviewed_sha256": "acae8a4d26990ec9eb4e898d8c95aac4ed29b9f30200daeff6c317cacd4b302b",
+        "observed_sha256": "acae8a4d26990ec9eb4e898d8c95aac4ed29b9f30200daeff6c317cacd4b302b"
+      }
+    },
+    {
+      "check": "reviewed_source_unchanged:envs/gym_multigrid/multigrid_envs/cluttered.py",
+      "passed": true,
+      "detail": {
+        "reviewed_sha256": "fb066f64d5ae99b02b99039e7b33689ca742e9ec8282c14de621bb60813d89c0",
+        "observed_sha256": "fb066f64d5ae99b02b99039e7b33689ca742e9ec8282c14de621bb60813d89c0"
+      }
+    },
+    {
+      "check": "reviewed_source_unchanged:envs/gym_multigrid/register.py",
+      "passed": true,
+      "detail": {
+        "reviewed_sha256": "1c127408797cace2db119e25089ec9f81024c8c4817d7609955b87fd43b7d590",
+        "observed_sha256": "1c127408797cace2db119e25089ec9f81024c8c4817d7609955b87fd43b7d590"
+      }
+    }
+  ],
+  "artifacts": {
+    "/private/tmp/socialrl-completion/results/ippo_seed1/config.json": {
+      "bytes": 682,
+      "sha256": "6455ba25b04276217a1b7d84f43aebef0853862a8f4f878a527064a87076c897"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/episodes.csv": {
+      "bytes": 8230349,
+      "sha256": "cd97f7520ab97b0c76c978d491b63ea1a27b74931b1494d0badf56e7187a69ec"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/summary.json": {
+      "bytes": 392,
+      "sha256": "a7cd250a7feb592944d5cf250cc8f39ce1b9c06b1c670c61aeb0078d9b15ab0f"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/checkpoints/final.pt": {
+      "bytes": 8600178,
+      "sha256": "44d21c7315f8b710990ad48be94d83f7d23b4a3eb5167988145737b34e3cb5c4"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/checkpoints/latest.pt": {
+      "bytes": 8600281,
+      "sha256": "77e474093b528c7b611856defaef5325c4cb43b71537b8bbd6fadcf6a48b13a5"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/summary.json": {
+      "bytes": 7599,
+      "sha256": "8027eca41d4d36f731d981c4270574ccd969ea487c7dbd7221e6bb3807a4b792"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/episodes.csv": {
+      "bytes": 45123,
+      "sha256": "a2d1cb142c03e8305b49886a0f5e2eb05426481d0084f1a669362e8585f83ec2"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_stochastic_seed1000000.json": {
+      "bytes": 57890,
+      "sha256": "fdf1b12722a615461a693ec5ebd1ce7e8756e5d5cf3b42e6da55164510bcb03f"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_stochastic_seed1000000.mp4": {
+      "bytes": 432603,
+      "sha256": "3dff718f62f1427ca5756ef5e7a90c47c2067cffc576952c8a5a9be824fa2758"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_stochastic_seed1000000.gif": {
+      "bytes": 2810234,
+      "sha256": "cff7b1e01d88c84e077c171916389ae0de8dc099a5d3b3aba1f21dcb6418eb1d"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_stochastic_seed1000000.png": {
+      "bytes": 61347,
+      "sha256": "9c361de03b9b6ed000072f12bde8d47f4d41fb32444eae84b9428983664193bd"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_deterministic_seed1000000.json": {
+      "bytes": 57886,
+      "sha256": "cd38e50102d6bda020209407c577ec422c3ebbf50ec8a7f34677758ed650938a"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_deterministic_seed1000000.mp4": {
+      "bytes": 434478,
+      "sha256": "39257c7b663445f462e2c20f15530b3536e602ddbb679cdd2eeefa41aee31145"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_deterministic_seed1000000.gif": {
+      "bytes": 2838306,
+      "sha256": "98d0da92484c229c6c74cd8b7b7a07ebe36c3671380999b620ecdac0510cadca"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/evaluation/trajectory_deterministic_seed1000000.png": {
+      "bytes": 61560,
+      "sha256": "6f0e33f303530c3bb6d1dc4950980f5824ee7d17bfda3fd87654da6c7ad16937"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/learning_curve.png": {
+      "bytes": 340619,
+      "sha256": "d15d7e81087f8b5036eeb11c88e11241a7a5dd8588f6e4cf3b2044c493e175b1"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/learning_curve.pdf": {
+      "bytes": 97725,
+      "sha256": "73c5b4255893de4321b21619d150cd849692efde4e94322bc17e11d1d18240bf"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/learning_curve.svg": {
+      "bytes": 208650,
+      "sha256": "baa986a1e4d76f78d249fa375376898b6ac92b0e44fa7bdf0359a3159edb3fa1"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/learning_curve.notes.json": {
+      "bytes": 804,
+      "sha256": "7b375a7848a6cede04fe0d0d98ff437b4947d654349075b3a459e2d90353eb49"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/evaluation_comparison.png": {
+      "bytes": 368517,
+      "sha256": "1159be4b6e3312016fde58e334ff972f228086993f6962494241e0fdd2dd75d3"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/evaluation_comparison.pdf": {
+      "bytes": 32297,
+      "sha256": "19884ed7fb61ab87fa39a3376465426d886cc5847ac925bb850fe922ddeb01a9"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/evaluation_comparison.svg": {
+      "bytes": 24803,
+      "sha256": "6f8535aa02f644858bee15608808324751646617534154418688da0756c23c7a"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/figures/evaluation_comparison.notes.json": {
+      "bytes": 728,
+      "sha256": "b1363f2012589f548d28bd5f4d5aeaaf2c87a34d6dbae7959050ccf3f4b334ea"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/wandb/offline-run-20261101_125625-nksxtadt/run-nksxtadt.wandb": {
+      "bytes": 1116704,
+      "sha256": "319f2ef8526f8a0974a6b2b49c376cae7032d0f9ffcfbf552d37f9718796baff"
+    },
+    "/private/tmp/socialrl-completion/results/ippo_seed1/wandb/latest-run/run-nksxtadt.wandb": {
+      "bytes": 1116704,
+      "sha256": "319f2ef8526f8a0974a6b2b49c376cae7032d0f9ffcfbf552d37f9718796baff"
+    },
+    "/private/tmp/socialrl-completion/env_adapter.py": {
+      "bytes": 1913,
+      "sha256": "0135f4572cf0658f1a764b2ef42abb4669309b24cfdf51981341edea8d4597e0"
+    },
+    "/private/tmp/socialrl-completion/envs/gym_multigrid/multigrid.py": {
+      "bytes": 38176,
+      "sha256": "acae8a4d26990ec9eb4e898d8c95aac4ed29b9f30200daeff6c317cacd4b302b"
+    },
+    "/private/tmp/socialrl-completion/envs/gym_multigrid/multigrid_envs/cluttered.py": {
+      "bytes": 15690,
+      "sha256": "fb066f64d5ae99b02b99039e7b33689ca742e9ec8282c14de621bb60813d89c0"
+    },
+    "/private/tmp/socialrl-completion/envs/gym_multigrid/register.py": {
+      "bytes": 1115,
+      "sha256": "1c127408797cace2db119e25089ec9f81024c8c4817d7609955b87fd43b7d590"
+    }
+  },
+  "declared_environment_changes": [
+    "Replaced wall-clock placement and global action-order RNG with reproducible independent streams.",
+    "Kept fixed layout_seed=52, 15x15 grid, 30 clutter walls, goal at(13,13), three agents, seven actions, 5x5 views and100-step timeout.",
+    "Kept individual reward1-0.9*step_count/100 and immediate goal respawn; sticky success flags are not terminations.",
+    "Cached static fields of view and overlaid visible agents; trajectory/view parity tests cover the reference implementation.",
+    "Added timeout metadata, NumPy array observations and portable RNG serialization; no reward shaping or centralized inputs added."
+  ],
+  "limitations": [
+    "One training seed and one fixed map: evaluation intervals describe episode sampling, not independent-training-seed or new-map generalization.",
+    "This local audit does not prove W&B cloud synchronization or creation of a remote repository fork; authentication/publishing must be verified separately.",
+    "Video decoding, timestamps and reward data are checked automatically; visual readability still needs human inspection.",
+    "Environment dimensions/layout/reward endpoints are checked here; behavioral equivalence also relies on the separate regression test suite."
+  ]
+}
